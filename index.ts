@@ -70,6 +70,14 @@ type Full<T extends arr, U extends arr, I extends arr = []> =
                     ? I
                     : Full<Minus<T, U>, U, Increment<I> >
 
+type Exp<T extends arr, U extends arr, R extends arr = [any]> =
+            Length<U> extends 1
+                ? Length<R> extends 1
+                    ? T
+                    : Multiply<R, T>
+                : Length<U> extends 0
+                    ? [any]
+                    : Exp<T, Decrement<U>, Multiply<R, T>>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //test
@@ -97,4 +105,4 @@ type t19 = IsMore<[], [1]>
 type t20 = Length<Multiply<FromNumber<2>, FromNumber<3>>>
 type t21 = Length<Devide<FromNumber<0>, FromNumber<5>>>
 type t22 = Length<Rest<FromNumber<8>, FromNumber<10>>>
-type t23 = Length<Full<FromNumber<18>, FromNumber<20>>>
+type t24 = Length<Exp<FromNumber<4>, FromNumber<3>>>
